@@ -1,6 +1,6 @@
 import { Icon, Intent } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
-import './App.css';
+import './App.scss';
 
 function App() : JSX.Element {
   return (
