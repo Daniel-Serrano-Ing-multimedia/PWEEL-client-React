@@ -1,41 +1,39 @@
 import React from 'react';
 
 // routeting
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import routes from './config/routes';
-import MainLayaout from './layaouts/MainLayaout/MainLayaout';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Iroute, Ilayaout } from './interfaces/routes';
+import layaoutesRoutes from './config/routes';
 // estilos
 import './App.scss';
 
-import { Icon, Intent } from '@blueprintjs/core';
-import { IconNames } from '@blueprintjs/icons';
-import HomePage from './pages/Home/Home';
+import MainLayaout from './layaouts/MainLayaout/MainLayaout';
+import AdminLayaout from './layaouts/AdminLayaout/AdminLayaout';
 
-const RouterWithSubRoutes = (route) => {
-  const { path, exact, componet: RouteComponent, routes } = route;
-  return (
-    <Route
-      path = { path }
-      exact = { exact }
-      render = { props => <RouteComponent routes = { routes } {...props}/>}
-    />
-  );
-}
+
+// Type Props
+const main: Ilayaout = layaoutesRoutes[0];
+const admin: Ilayaout = layaoutesRoutes[1];
 
 function App(): JSX.Element {
   return (
-    <Router>
-      <Switch>
-        {
-          routes.map(( route, index ) => {
-            <RouterWithSubRoutes
-              key={index}
-              { ...route }
-            />
-          } )
-        }
-      </Switch>
-    </Router>
+    <BrowserRouter>
+
+        <Route
+            path={main.path}
+            exact={main.exact}
+          >
+            <MainLayaout routes = { main.routes } />
+          </Route>
+          <Route
+            path={admin.path}
+            exact={admin.exact}
+          >
+            <AdminLayaout routes = { admin.routes }/>
+        </Route>
+        
+
+    </BrowserRouter>
   );
 }
 

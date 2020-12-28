@@ -1,30 +1,44 @@
 //Layaouts
-import MainLayaout, { MainLayaoutProps } from '../layaouts/MainLayaout/MainLayaout';
-
+import MainLayaout from '../layaouts/MainLayaout/MainLayaout';
+import AdmiLayaout from '../layaouts/AdminLayaout/AdminLayaout';
+import { Ilayaout } from '../interfaces/routes';
 // Pages
 import HomePage from '../pages/Home/Home';
-// Pages
+import Login from '../pages/Login/Login';
+// interface
 
 //others
 
-const routes = [
+const layaoutesRoutes : Ilayaout[] = [
   {
-    path      : "/",
-    component : MainLayaout,
-    exact      : true,
-    routes    : [
+    path              : "/",
+    LayaoutComponent  : MainLayaout,
+    exact             : false,
+    routes            : [
       {
-        path      : "/home-page",
-        component : HomePage,
+        path      : "/",
+        Component : HomePage,
         exact     : true
       },
       {
         path      : "/login",
-        component : HomePage,
+        Component : Login,
+        exact     : true
+      }
+    ]
+  },
+  {
+    path              : "/admin",
+    LayaoutComponent  : AdmiLayaout,
+    exact             : false,
+    routes            : [
+      {
+        path      : "/login",
+        Component : Login,
         exact     : true
       }
     ]
   }
 ];
 
-export default routes;
+export default layaoutesRoutes;

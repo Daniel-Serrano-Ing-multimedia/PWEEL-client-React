@@ -4,7 +4,7 @@ export interface HomePageProps {
   
 }
  
-const HomePage: React.FunctionComponent<HomePageProps> = () => {
+const HomePage: React.FC<HomePageProps> = () => {
   return (
     <div>
       <h2> HomePage .... </h2>
