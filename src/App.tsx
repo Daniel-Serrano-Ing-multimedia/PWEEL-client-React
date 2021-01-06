@@ -18,10 +18,11 @@ const admin: Ilayaout = layaoutesRoutes[1];
 function App(): JSX.Element {
   return (
     <BrowserRouter>
-
+      <Switch>
         <Route
             path={main.path}
             exact={main.exact}
+            strict = { main.strict }
           >
             <MainLayaout routes = { main.routes } />
           </Route>
@@ -31,6 +32,8 @@ function App(): JSX.Element {
           >
             <AdminLayaout routes = { admin.routes }/>
         </Route>
+      </Switch>
+        
         
 
     </BrowserRouter>

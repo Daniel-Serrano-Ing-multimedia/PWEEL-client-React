@@ -13,7 +13,8 @@ const layaoutesRoutes : Ilayaout[] = [
   {
     path              : "/",
     LayaoutComponent  : MainLayaout,
-    exact             : false,
+    exact: true,
+    strict: true,
     routes            : [
       {
         path      : "/",
@@ -30,7 +31,8 @@ const layaoutesRoutes : Ilayaout[] = [
   {
     path              : "/admin",
     LayaoutComponent  : AdmiLayaout,
-    exact             : false,
+    exact: false,
+    strict: true,
     routes            : [
       {
         path      : "/login",

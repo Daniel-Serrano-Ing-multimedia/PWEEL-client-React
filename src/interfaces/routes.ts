@@ -10,6 +10,7 @@ export interface Iroute {
 export interface Ilayaout{
   path              : string,
   LayaoutComponent  : React.FC<layaoutProps>,
-  exact             : boolean,
+  exact: boolean,
+  strict: boolean,
   routes            : Iroute[]
 }
