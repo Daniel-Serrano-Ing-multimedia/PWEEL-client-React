@@ -1,0 +1,25 @@
+@import './variables.scss';
+
+.header{
+  height: 80px;
+  font-family: $text-primary;
+  background-color: $secondary-color;
+  color : $grey-color-light;
+  display : flex;
+  justify-content: space-between;
+  padding: 16px 0  24px 24px;
+   h1{
+    &:hover{
+      cursor:pointer;
+    }
+  }
+  nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 24px  24px 0;
+    width: 30%;
+    a{
+      color: $grey-color-light;
+    }
+  }
+}
