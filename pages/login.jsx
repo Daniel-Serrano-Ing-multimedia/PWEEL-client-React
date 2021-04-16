@@ -1,8 +1,15 @@
 import React from 'react';
+import styles from '../styles/Forms.module.scss';
 
 const Login = () => {
   return ( 
-    <h1>Login...</h1>
+    <div className = { styles.form }>
+      <div>
+        <div className = 'campo' >
+          <label>Nombre :</label>
+        </div>
+      </div>
+    </div>
    );
 }
  
