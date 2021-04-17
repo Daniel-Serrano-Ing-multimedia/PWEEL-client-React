@@ -1,4 +1,8 @@
 import React from 'react';
+//redux
+import store from '../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { registroExitoso } from '../actions/authActions';
 //styles
 import styles from '../styles/Forms.module.scss';
 // validaciones
@@ -6,6 +10,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const Registro = () => {
+  const productoEditar = useSelector ( state => state.authReducer );
+  // 
+  const dispatch = useDispatch();
   //Formik
   const submit = ( data ) => {
     console.log( data );
@@ -21,14 +28,19 @@ const Registro = () => {
     },
     validationSchema: Yup.object({
       name : Yup.string().required('El nombre es Obligatorio'),
-      email : Yup.string() .email('El Email no es validp')
+      email : Yup.string() .email('El Email no es valido')
       .required('El Email es Obligatorio'),
       password : Yup.string()
         .required('El password es obligatorio')
         .min( 6, 'el Password debe ser de almenos 6 caracteres' ),
+      confirmPassword : Yup.string()
+        .oneOf([Yup.ref('password'), null], 'Los passwords no coinciden'),
     }),
     onSubmit: valores =>{
       console.log(' valores ');
+      console.log( 'state'  ,store.getState() )
+      dispatch( registroExitoso() );
+      console.log( 'newstate'  ,store.getState() )
     }
   });
 
