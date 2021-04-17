@@ -36,10 +36,13 @@ const Registro = () => {
   return (
     <form
         className = { `${styles.form}`}
-        //onSubmit = { formik.handleSubmit }
-        onSubmit = { submit( formik.values ) }
+        onSubmit = { formik.handleSubmit }
+        data-cy = 'registro-form'
         >
-          <h2 className = { styles.form_title }>Registrarse</h2>
+          <h2  
+            data-cy = 'registro-title'
+            className = { styles.form_title }
+          >Registrarse</h2>
         <div
           className = { `${styles.form_container}` }
         >
@@ -128,7 +131,7 @@ const Registro = () => {
             <label 
               htmlFor = 'password'>password :</label>
             <input 
-              //className = {}
+              data-cy = 'registro-input-password'
               id= 'password'
               type = 'password'
               placeholder = 'password'
@@ -149,7 +152,7 @@ const Registro = () => {
             <label 
               htmlFor = 'password'>Confirmar password :</label>
             <input 
-              //className = {}
+              data-cy = 'registro-input-confirmPassword'
               id= 'confirmPassword'
               type = 'password'
               placeholder = 'Confirmar password'
@@ -167,6 +170,7 @@ const Registro = () => {
             }
         </div>
           <input 
+            data-cy = 'registro-input-submit'
             type="submit"
             className = { styles.form_submit }
             value = 'Registrarse'
