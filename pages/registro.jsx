@@ -3,6 +3,8 @@ import React from 'react';
 import store from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { registroExitoso } from '../actions/authActions';
+//components
+import InputField from '../components/InputField';
 //styles
 import styles from '../styles/Forms.module.scss';
 // validaciones
@@ -10,7 +12,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const Registro = () => {
-  const productoEditar = useSelector ( state => state.authReducer );
+  const authState = useSelector ( state => state.authReducer );
   // 
   const dispatch = useDispatch();
   //Formik
@@ -41,145 +43,89 @@ const Registro = () => {
       console.log( 'state'  ,store.getState() )
       dispatch( registroExitoso() );
       console.log( 'newstate'  ,store.getState() )
+      console.log( 'newstate'  ,authState )
     }
   });
 
 
   return (
     <form
-        className = { `${styles.form}`}
-        onSubmit = { formik.handleSubmit }
-        data-cy = 'registro-form'
-        >
-          <h2  
-            data-cy = 'registro-title'
-            className = { styles.form_title }
-          >Registrarse</h2>
-        <div
-          className = { `${styles.form_container}` }
-        >
-          <div className = { `${styles.form_field} col-12-sm col-6-lg` } >
-            <label 
-              htmlFor = 'name'>Nombres</label>
-            <input 
-              data-cy = 'registro-input-name'
-              id= 'name'
-              type = 'text'
-              placeholder = 'Cual es tu nombre ?'
-              value = { formik.values.name }
-              onChange = { formik.handleChange }
-              onBlur = { formik.handleBlur }
-            />
-          </div>
-          { formik.touched.name && formik.errors.name?
-              <div className = ''>
-                <p className =''>Error</p>
-                <p >{ formik.errors.name }</p>
-              </div>
-            : null
-          }
-          <div className = { `${styles.form_field} col-12-sm col-6-lg` } >
-            <label 
-              htmlFor = 'lastname'>Apellidos :</label>
-            <input 
-              data-cy = 'registro-input-lastname'
-              id= 'lastname'
-              type = 'text'
-              placeholder = 'Cual es tu apellido ?'
-              value = { formik.values.lastname }
-              onChange = { formik.handleChange }
-              onBlur = { formik.handleBlur }
-            />
-          </div>
-            { formik.touched.lastname && formik.errors.lastname?
-                <div className = ''>
-                  <p className =''>Error</p>
-                  <p >{ formik.errors.lastname }</p>
-                </div>
-              : null
-            }
-
-          <div className = {  `${styles.form_field}  col-12-sm col-6-lg `} >
-            <label 
-              htmlFor = 'email'>E-mail :</label>
-            <input 
-              data-cy = 'registro-input-email'
-              id= 'email'
-              type = 'email'
-              placeholder = 'example@example.com'
-              value = { formik.values.email }
-              onChange = { formik.handleChange }
-              onBlur = { formik.handleBlur }
-            />
-          </div>
-            { formik.touched.email && formik.errors.email?
-                <div className = ''>
-                  <p className =''>Error</p>
-                  <p >{ formik.errors.email }</p>
-                </div>
-              : null
-            }
-
-          <div className = {  `${styles.form_field}  col-12-sm col-6-lg `} >
-            <label 
-              htmlFor = 'cellphone'>Cellphone :</label>
-            <input 
-              id= 'cellphone'
-              type = 'text'
-              placeholder = '15415852'
-              value = { formik.values.cellphone }
-              onChange = { formik.handleChange }
-              onBlur = { formik.handleBlur }
-            />
-          </div>
-            { formik.touched.cellphone && formik.errors.cellphone?
-                <div className = ''>
-                  <p className =''>Error</p>
-                  <p >{ formik.errors.ecllphone }</p>
-                </div>
-              : null
-            }
-          <div className = {  `${styles.form_field}  col-12-sm col-6-lg `} >
-            <label 
-              htmlFor = 'password'>password :</label>
-            <input 
-              data-cy = 'registro-input-password'
-              id= 'password'
-              type = 'password'
-              placeholder = 'password'
-              value = { formik.values.password }
-              onChange = { formik.handleChange }
-              onBlur = { formik.handleBlur }
-            />
-          </div>
-           { formik.touched.password && formik.errors.password?
-                <div className = ''>
-                  <p className =''>Error</p>
-                  <p >{ formik.errors.password }</p>
-                </div>
-              : null
-            }
-
-          <div className = {  `${styles.form_field}  col-12-sm col-6-lg `} >
-            <label 
-              htmlFor = 'password'>Confirmar password :</label>
-            <input 
-              data-cy = 'registro-input-confirmPassword'
-              id= 'confirmPassword'
-              type = 'password'
-              placeholder = 'Confirmar password'
-              value = { formik.values.confirmPassword }
-              onChange = { formik.handleChange }
-              onBlur = { formik.handleBlur }
-            />
-          </div>
-            { formik.touched.confirmPassword && formik.errors.confirmPassword?
-                <div className = ''>
-                  <p className =''>Error</p>
-                  <p >{ formik.errors.confirmPassword }</p>
-                </div>
-              : null
-            }
+      className = { styles.form}
+      onSubmit = { formik.handleSubmit }
+      data-cy = 'registro-form'
+      >
+      <h2  
+        data-cy = 'registro-title'
+        className = { styles.form_title }
+      >Registrarse</h2>
+      <div className = { styles.form_container }>          
+        <div  className = { styles.form_container_inputs }>
+          < InputField
+            inputField = 'name'
+            placeholder = 'Cual es tu Nombre'
+            label = 'Nombres :'
+            type = 'text' 
+            value = { formik.values.name }
+            error = { formik.errors.name }
+            touched = { formik.touched.name }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          />
+          < InputField
+            inputField = 'lastname'
+            placeholder = 'Cual es tu Apellido'
+            label = 'Apellidos :'
+            type = 'text' 
+            value = { formik.values.lastname }
+            error = { formik.errors.lastname }
+            touched = { formik.touched.lastname }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          />
+          < InputField
+            inputField = 'email'
+            placeholder = 'example@example'
+            label = 'Email :'
+            type = 'email' 
+            value = { formik.values.email }
+            error = { formik.errors.email }
+            touched = { formik.touched.email }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          />
+          < InputField
+            inputField = 'cellphone'
+            placeholder = 'Cual es tu Apellido'
+            label = 'No. de telefono :'
+            type = 'text' 
+            value = { formik.values.cellphone }
+            error = { formik.errors.cellphone }
+            touched = { formik.touched.cellphone }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          /> 
+          < InputField
+            inputField = 'password'
+            placeholder = 'paswword'
+            label = 'PAssword :'
+            type = 'password' 
+            value = { formik.values.password }
+            error = { formik.errors.password }
+            touched = { formik.touched.password }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          />
+          < InputField
+            inputField = 'confirmPassword'
+            placeholder = 'Confirma el passwordo'
+            label = 'Confirma Password :'
+            type = 'password' 
+            value = { formik.values.confirmPassword }
+            error = { formik.errors.confirmPassword }
+            touched = { formik.touched.confirmPassword }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          />
         </div>
           <input 
             data-cy = 'registro-input-submit'
@@ -187,7 +133,8 @@ const Registro = () => {
             className = { styles.form_submit }
             value = 'Registrarse'
            />
-      </form>
+      </div>
+    </form>
   );
 }
  

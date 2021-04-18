@@ -12,14 +12,17 @@
   }
 
   &_container{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 24px 24px 0 24px;
+    width: 100%;
     background-color: $grey-color-light;
     font-family: $text-primary ;
     max-width: 1200px;
     width: 80%;
+    &_inputs{
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 24px 24px 0 24px;
+    }
   }
   &_field{
     padding-bottom: 16px;
