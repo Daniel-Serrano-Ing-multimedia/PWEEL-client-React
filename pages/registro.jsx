@@ -1,99 +1,140 @@
-import { FormikConsumer } from 'formik';
 import React from 'react';
+//redux
+import store from '../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { registroExitoso } from '../actions/authActions';
+//components
+import InputField from '../components/InputField';
 //styles
 import styles from '../styles/Forms.module.scss';
+// validaciones
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const Registro = () => {
+  const authState = useSelector ( state => state.authReducer );
+  // 
+  const dispatch = useDispatch();
+  //Formik
+  const submit = ( data ) => {
+    console.log( data );
+  }
+  const formik = useFormik({
+    initialValues :{
+      name : '',
+      lastname : '',
+      email : '',
+      cellphone : '',
+      password : '',
+      confirmPassword : '',
+    },
+    validationSchema: Yup.object({
+      name : Yup.string().required('El nombre es Obligatorio'),
+      email : Yup.string() .email('El Email no es valido')
+      .required('El Email es Obligatorio'),
+      password : Yup.string()
+        .required('El password es obligatorio')
+        .min( 6, 'el Password debe ser de almenos 6 caracteres' ),
+      confirmPassword : Yup.string()
+        .oneOf([Yup.ref('password'), null], 'Los passwords no coinciden'),
+    }),
+    onSubmit: valores =>{
+      console.log(' valores ');
+      console.log( 'state'  ,store.getState() )
+      dispatch( registroExitoso() );
+      console.log( 'newstate'  ,store.getState() )
+      console.log( 'newstate'  ,authState )
+    }
+  });
+
+
   return (
-    <div className = { `${styles.form}`}>
-      <h2 className = { styles.form_title }>Registrarse</h2>
-      <form
-        className = { `${styles.form_container}` }
+    <form
+      className = { styles.form}
+      onSubmit = { formik.handleSubmit }
+      data-cy = 'registro-form'
       >
-        
-          <div className = { `${styles.form_field} col-12-sm col-6-lg` } >
-            <label 
-              htmlFor = 'name'>Nombres</label>
-            <input 
-              //className = {}
-              id= 'name'
-              type = 'text'
-              placeholder = 'Cual es tu nombre ?'
-              //value = {}
-              //onChange = {}
-            />
-          </div>
-          <div className = { `${styles.form_field} col-12-sm col-6-lg` } >
-            <label 
-              htmlFor = 'lstname'>Apellidos :</label>
-            <input 
-              //className = {}
-              id= 'lastname'
-              type = 'text'
-              placeholder = 'Cual es tu nombre ?'
-              //value = {}
-              //onChange = {}
-            />
-          </div>
-
-          <div className = {  `${styles.form_field}  col-12-sm col-6-lg `} >
-            <label 
-              htmlFor = 'email'>E-mail :</label>
-            <input 
-              //className = {}
-              id= 'email'
-              type = 'email'
-              placeholder = 'example@example.com'
-              //value = {}
-              //onChange = {}
-            />
-          </div>
-
-          <div className = {  `${styles.form_field}  col-12-sm col-6-lg `} >
-            <label 
-              htmlFor = 'cellphone'>Cellphone :</label>
-            <input 
-              //className = {}
-              id= 'cellphone'
-              type = 'number'
-              placeholder = '15415852'
-              //value = {}
-              //onChange = {}
-            />
-          </div>
-
-          <div className = {  `${styles.form_field}  col-12-sm col-6-lg `} >
-            <label 
-              htmlFor = 'password'>password :</label>
-            <input 
-              //className = {}
-              id= 'password'
-              type = 'password'
-              placeholder = 'password'
-              //value = {}
-              //onChange = {}
-            />
-          </div>
-
-          <div className = {  `${styles.form_field}  col-12-sm col-6-lg `} >
-            <label 
-              htmlFor = 'password'>Confirmar password :</label>
-            <input 
-              //className = {}
-              id= 'password'
-              type = 'password'
-              placeholder = 'Confirmar password'
-              //value = {}
-              //onChange = {}
-            />
-          </div>
-          <button 
+      <h2  
+        data-cy = 'registro-title'
+        className = { styles.form_title }
+      >Registrarse</h2>
+      <div className = { styles.form_container }>          
+        <div  className = { styles.form_container_inputs }>
+          < InputField
+            inputField = 'name'
+            placeholder = 'Cual es tu Nombre'
+            label = 'Nombres :'
+            type = 'text' 
+            value = { formik.values.name }
+            error = { formik.errors.name }
+            touched = { formik.touched.name }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          />
+          < InputField
+            inputField = 'lastname'
+            placeholder = 'Cual es tu Apellido'
+            label = 'Apellidos :'
+            type = 'text' 
+            value = { formik.values.lastname }
+            error = { formik.errors.lastname }
+            touched = { formik.touched.lastname }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          />
+          < InputField
+            inputField = 'email'
+            placeholder = 'example@example'
+            label = 'Email :'
+            type = 'email' 
+            value = { formik.values.email }
+            error = { formik.errors.email }
+            touched = { formik.touched.email }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          />
+          < InputField
+            inputField = 'cellphone'
+            placeholder = 'Cual es tu Apellido'
+            label = 'No. de telefono :'
+            type = 'text' 
+            value = { formik.values.cellphone }
+            error = { formik.errors.cellphone }
+            touched = { formik.touched.cellphone }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          /> 
+          < InputField
+            inputField = 'password'
+            placeholder = 'paswword'
+            label = 'PAssword :'
+            type = 'password' 
+            value = { formik.values.password }
+            error = { formik.errors.password }
+            touched = { formik.touched.password }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          />
+          < InputField
+            inputField = 'confirmPassword'
+            placeholder = 'Confirma el passwordo'
+            label = 'Confirma Password :'
+            type = 'password' 
+            value = { formik.values.confirmPassword }
+            error = { formik.errors.confirmPassword }
+            touched = { formik.touched.confirmPassword }
+            handleChange = { formik.handleChange }
+            handleBlur = { formik.handleBlur }
+          />
+        </div>
+          <input 
+            data-cy = 'registro-input-submit'
             type="submit"
             className = { styles.form_submit }
-          > Registrarme</button>
-       
-      </form>
-    </div>
+            value = 'Registrarse'
+           />
+      </div>
+    </form>
   );
 }
  
