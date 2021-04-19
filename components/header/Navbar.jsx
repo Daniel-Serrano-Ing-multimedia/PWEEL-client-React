@@ -2,7 +2,7 @@ import React from 'react';
 // routing
 import Link from 'next/link';
  //styles
-import styles from '../styles/Header.module.scss';
+import styles from '../../styles/Header.module.scss';
 
 const NavBar = () => {
   return ( 

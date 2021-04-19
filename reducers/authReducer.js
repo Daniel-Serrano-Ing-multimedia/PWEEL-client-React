@@ -39,7 +39,8 @@ const authReducer = ( state = initialState, action ) => {
         message: payload.message,
         refreshToken: payload.refreshTosken,
         isauthenticated : true,
-        error: false
+        error: false,
+        user : payload.user
       }
     default:
       return state;

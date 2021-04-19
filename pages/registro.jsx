@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 //redux
-import store from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { registrarUsuario } from '../actions/authActions';
 //components
@@ -12,8 +11,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const Registro = () => {
-  const authState = useSelector ( state => state.authReducer );
-  // 
+  // *******************************************
+  // ***************** Redux ********************
+  // *******************************************
+  const authState = useSelector ( state => state.authReducer ); 
   const dispatch = useDispatch();
    // *******************************************
   // ***************** useEffect ***************
