@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 //redux
 import store from '../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { registroExitoso } from '../actions/authActions';
+import { registrarUsuario } from '../actions/authActions';
 //components
 import InputField from '../components/InputField';
 //styles
@@ -15,10 +15,15 @@ const Registro = () => {
   const authState = useSelector ( state => state.authReducer );
   // 
   const dispatch = useDispatch();
-  //Formik
-  const submit = ( data ) => {
-    console.log( data );
-  }
+   // *******************************************
+  // ***************** useEffect ***************
+  // *******************************************
+  useEffect(() => {
+    console.log( 'newstate efect ', authState )
+  }, [ authState ]);
+  // *******************************************
+  // ***************** Formik ******************
+  // *******************************************
   const formik = useFormik({
     initialValues :{
       name : '',
@@ -38,12 +43,10 @@ const Registro = () => {
       confirmPassword : Yup.string()
         .oneOf([Yup.ref('password'), null], 'Los passwords no coinciden'),
     }),
-    onSubmit: valores =>{
+    onSubmit: async valores =>{
       console.log(' valores ');
-      console.log( 'state'  ,store.getState() )
-      dispatch( registroExitoso() );
-      console.log( 'newstate'  ,store.getState() )
-      console.log( 'newstate'  ,authState )
+      dispatch( registrarUsuario( valores ) );
+      //console.log( 'newstate'  ,store.getState( authState) )
     }
   });
 

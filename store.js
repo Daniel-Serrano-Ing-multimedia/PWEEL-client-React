@@ -1,6 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux';
+// reducers
 import rootReducer from './reducers';
+// midlewares
 import { composeWithDevTools } from 'redux-devtools-extension'
+import thunk from 'redux-thunk'
 
 let preLoadState ;
 
@@ -14,8 +17,8 @@ if (typeof window !== "undefined") {
     }  
   }
 }
-// middlewares
-const composedEnhancer = composeWithDevTools();
+// middlewares - compose withd devtool + thunk for async behaviour
+const composedEnhancer = composeWithDevTools( applyMiddleware( thunk ) );
 //store
 const store = createStore( rootReducer, preLoadState, composedEnhancer);
 
